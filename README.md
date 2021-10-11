@@ -1,24 +1,21 @@
-# test
+# Zadanie - Frontend Team
+1. Zachowaj formę tabeli z kolumnami:
 
-## Project setup
-```
-npm install
-```
+imię
+nazwisko
+dział
+wynagrodzenie z walutą
+pod danymi pokaż sumę wynagrodzenia według działów oraz sumę całkowitą
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+2. Zapewnij możliwość przeszukiwania danych według pól:
 
-### Compiles and minifies for production
-```
-npm run build
-```
+osoba (typ: tekst)
+dział (typ: wybór wielokrotny) - wybór budowany automatycznie na podstawie danych z tabeli PRACOWNICY
+kwota wynagrodzenie (przedział)
 
-### Lints and fixes files
-```
-npm run lint
-```
+3. Zapewnij możliwość dodawania nowych pracowników
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+
