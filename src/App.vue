@@ -1,16 +1,56 @@
 <template>
-  <div>
-    <table-pracownicy />
+  <div id="app">
+    <worker-table :workers="workers" />
   </div>
 </template>
 
 <script>
-import TablePracownicy from "@/components/TablePracownicy.vue";
+import WorkerTable from "@/components/WorkerTable.vue";
 
 export default {
-  name: "App",
   components: {
-    TablePracownicy,
+    WorkerTable,
+  },
+  data() {
+    return {
+      workers: [
+        {
+          imie: "Jan",
+          nazwisko: "Kowalski",
+          dzial: "IT",
+          wynagrodzenieKwota: "3000",
+          wynagrodzenieWaluta: "PLN",
+        },
+        {
+          imie: "Anna",
+          nazwisko: "Bąk",
+          dzial: "Administracja",
+          wynagrodzenieKwota: "2400.50",
+          wynagrodzenieWaluta: "PLN",
+        },
+        {
+          imie: "Paweł",
+          nazwisko: "Zabłocki",
+          dzial: "IT",
+          wynagrodzenieKwota: "3300",
+          wynagrodzenieWaluta: "PLN",
+        },
+        {
+          imie: "Tomasz",
+          nazwisko: "Osiecki",
+          dzial: "Administracja",
+          wynagrodzenieKwota: "2100",
+          wynagrodzenieWaluta: "PLN",
+        },
+        {
+          imie: "Iwona",
+          nazwisko: "Leihs-Gutowska",
+          dzial: "Handlowiec",
+          wynagrodzenieKwota: "3100",
+          wynagrodzenieWaluta: "PLN",
+        },
+      ],
+    };
   },
 };
 </script>
