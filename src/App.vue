@@ -1,15 +1,23 @@
 <template>
   <div id="app">
+    <div>
+      <my-button @click="showDialog"> Dodaj nowego pracownika </my-button>
+    </div>
+    <my-dialog v-model:show="dialogVisible">
+      <worker-form />
+    </my-dialog>
     <worker-table :workers="workers" />
   </div>
 </template>
 
 <script>
 import WorkerTable from "@/components/WorkerTable.vue";
+import WorkerForm from "@/components/WorkerForm.vue";
 
 export default {
   components: {
     WorkerTable,
+    WorkerForm,
   },
   data() {
     return {
@@ -50,7 +58,13 @@ export default {
           wynagrodzenieWaluta: "PLN",
         },
       ],
+      dialogVisible: false,
     };
+  },
+  methods: {
+    showDialog() {
+      this.dialogVisible = true;
+    },
   },
 };
 </script>
