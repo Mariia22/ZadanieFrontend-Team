@@ -25,7 +25,10 @@
         </tr>
       </thead>
       <tbody>
-        <salary-item :worker="worker" />
+        <tr v-for="(value, key) in sumSalaryDepartments" :key="key">
+          <td>{{ key }}</td>
+          <td>{{ value }}</td>
+        </tr>
       </tbody>
       <tfoot>
         <tr>
@@ -42,7 +45,6 @@
 
 <script>
 import WorkerItem from "@/components/WorkerItem.vue";
-//import SalaryItem from "@/components/WorkerItem.vue";
 
 export default {
   components: {
@@ -60,8 +62,23 @@ export default {
       this.workers.forEach((worker) => {
         sum += Number(worker.wynagrodzenieKwota);
       });
-      console.log(sum);
       return sum;
+    },
+    sumSalaryDepartments: function calculateSumDepartments() {
+      const departments = [];
+      this.workers.forEach((worker) => {
+        departments.push({
+          key: worker.dzial,
+          value: worker.wynagrodzenieKwota,
+        });
+      });
+      const departmentsObject = departments.reduce(
+        (acc, { key, value }) => (
+          (acc[key] = (acc[key] || 0) + Number(value)), acc
+        ),
+        {}
+      );
+      return departmentsObject;
     },
   },
 };

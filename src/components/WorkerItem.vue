@@ -1,9 +1,9 @@
 <template>
   <tr>
-    <th>{{ worker.imie }}</th>
-    <th>{{ worker.nazwisko }}</th>
-    <th>{{ worker.dzial }}</th>
-    <th>{{ fullSalary }}</th>
+    <td>{{ worker.imie }}</td>
+    <td>{{ worker.nazwisko }}</td>
+    <td>{{ worker.dzial }}</td>
+    <td>{{ fullSalary }}</td>
   </tr>
 </template>
 
