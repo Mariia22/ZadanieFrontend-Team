@@ -4,7 +4,7 @@
       <my-button @click="showDialog"> Dodaj nowego pracownika </my-button>
     </div>
     <my-dialog v-model:show="dialogVisible">
-      <worker-form />
+      <worker-form @create="createWorker" />
     </my-dialog>
     <worker-table :workers="workers" />
   </div>
@@ -64,6 +64,10 @@ export default {
   methods: {
     showDialog() {
       this.dialogVisible = true;
+    },
+    createWorker(worker) {
+      this.workers.push(worker);
+      this.dialogVisible = false;
     },
   },
 };

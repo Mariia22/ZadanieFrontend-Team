@@ -39,6 +39,5 @@ export default {
   border-radius: 12px;
   min-height: 50px;
   min-width: 300px;
-  padding: 20px;
 }
 </style>
