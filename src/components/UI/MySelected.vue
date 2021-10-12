@@ -12,6 +12,7 @@
     </select>
   </div>
 </template>
+
 <script>
 export default {
   name: "my-selected",
@@ -33,6 +34,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .select {
   width: 100%;

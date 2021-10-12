@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div>
+      <search-form />
       <my-button @click="showDialog"> Dodaj nowego pracownika </my-button>
     </div>
     <my-dialog v-model:show="dialogVisible">
@@ -13,11 +14,13 @@
 <script>
 import WorkerTable from "@/components/WorkerTable.vue";
 import WorkerForm from "@/components/WorkerForm.vue";
+import SearchForm from "./components/SearchForm.vue";
 
 export default {
   components: {
     WorkerTable,
     WorkerForm,
+    SearchForm,
   },
   data() {
     return {
