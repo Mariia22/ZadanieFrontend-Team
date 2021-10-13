@@ -1,26 +1,36 @@
 <template>
   <div id="app">
     <div>
-      <search-form />
+      <form @submit.prevent>
+        <my-input
+          type="search"
+          placeholder="Szukaj..."
+          v-model="searchWorker"
+        />
+        <my-multyselected :options="dzial" />
+        <my-selected
+          :options="kwota"
+          :selection="selection"
+          v-model="searchSalary"
+        />
+      </form>
       <my-button @click="showDialog"> Dodaj nowego pracownika </my-button>
     </div>
     <my-dialog v-model:show="dialogVisible">
       <worker-form @create="createWorker" />
     </my-dialog>
-    <worker-table :workers="workers" />
+    <worker-table :workers="sortedWorkers" />
   </div>
 </template>
 
 <script>
 import WorkerTable from "@/components/WorkerTable.vue";
 import WorkerForm from "@/components/WorkerForm.vue";
-import SearchForm from "./components/SearchForm.vue";
 
 export default {
   components: {
     WorkerTable,
     WorkerForm,
-    SearchForm,
   },
   data() {
     return {
@@ -62,6 +72,11 @@ export default {
         },
       ],
       dialogVisible: false,
+      dzial: ["IT", "B"],
+      kwota: ["0-2000", "2000-3000", ">3000"],
+      selection: "kwotę wynagrodzenia",
+      searchWorker: "",
+      searchSalary: "",
     };
   },
   methods: {
@@ -71,6 +86,16 @@ export default {
     createWorker(worker) {
       this.workers.push(worker);
       this.dialogVisible = false;
+    },
+  },
+  computed: {
+    sortedWorkers() {
+      return this.workers.filter((worker) => {
+        return (
+          worker.imie.toLowerCase().includes(this.searchWorker) ||
+          worker.nazwisko.toLowerCase().includes(this.searchWorker)
+        );
+      });
     },
   },
 };

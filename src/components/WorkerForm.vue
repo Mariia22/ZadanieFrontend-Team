@@ -9,7 +9,11 @@
       type="number"
       placeholder="Wynagrodzenie"
     />
-    <my-selected :options="currency" v-model="worker.wynagrodzenieWaluta" />
+    <my-selected
+      :options="currency"
+      v-model="worker.wynagrodzenieWaluta"
+      :selection="selection"
+    />
     <my-button @click="createWorker">Dodaj</my-button>
   </form>
 </template>
@@ -26,6 +30,7 @@ export default {
         wynagrodzenieWaluta: "",
       },
       currency: ["PLN", "EUR", "USD"],
+      selection: "walutę",
     };
   },
   methods: {

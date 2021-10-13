@@ -2,6 +2,9 @@
   <div>
     <label v-if="label">{{ label }}</label>
     <select :value="modelValue" @input="updateSelect" class="select">
+      <option :selected="true" value="" disabled>
+        Proszę wybrać {{ selection }}
+      </option>
       <option
         v-for="option in options"
         :key="option"
@@ -26,6 +29,7 @@ export default {
       default: "",
     },
     modelValue: String,
+    selection: String,
   },
   methods: {
     updateSelect(event) {
