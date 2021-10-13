@@ -1,33 +1,35 @@
 <template>
   <div id="app">
-    <div>
-      <form @submit.prevent>
+    <div class="wrapper">
+      <form class="search_form" @submit.prevent>
         <my-input
           type="search"
           placeholder="Szukaj..."
           v-model="searchWorker"
         />
-        <select class="select" v-model="searchDepartment" multiple>
-          <option v-for="department in departments" :key="department">
-            {{ department }}
-          </option>
-        </select>
         <my-selected
           :options="salary"
           :selection="selection"
           v-model="searchSalary"
         />
+        <select v-model="searchDepartment" class="search_multiselect" multiple>
+          <option v-for="department in departments" :key="department">
+            {{ department }}
+          </option>
+        </select>
       </form>
-      <my-button @click="showDialog"> Dodaj nowego pracownika </my-button>
+      <div class="workers">
+        <my-dialog v-model:show="dialogVisible">
+          <worker-form @create="createWorker" />
+        </my-dialog>
+        <h3>PRACOWNICY</h3>
+        <worker-table :workers="sortedWorkersSalaryDepartment" class="table" />
+        <my-button @click="showDialog"> + Dodaj nowego pracownika </my-button>
+      </div>
     </div>
-    <my-dialog v-model:show="dialogVisible">
-      <worker-form @create="createWorker" />
-    </my-dialog>
-    <worker-table :workers="sortedWorkersSalaryDepartment" />
   </div>
 </template>
 //TODO: check sum to departments
-//TODO: style
 //TODO: forms
 <script>
 import { persons, salaryData } from "@/data.js";
@@ -127,5 +129,25 @@ export default {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+h3 {
+  margin: 0;
+  color: #6678b1;
+}
+.wrapper {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.search_form {
+  margin: 47px 35px;
+  display: flex;
+  flex-direction: column;
+}
+.search_multiselect {
+  width: 50%;
+  border: 1px solid #6678b1;
+  color: grey;
+  margin: 15px 0;
 }
 </style>
