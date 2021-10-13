@@ -64,7 +64,4 @@ form {
   flex-direction: column;
   padding: 2px 50px 2px 20px;
 }
-button:disabled {
-  background: brown;
-}
 </style>

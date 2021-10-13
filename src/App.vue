@@ -26,7 +26,9 @@
     <worker-table :workers="sortedWorkersSalaryDepartment" />
   </div>
 </template>
-
+//TODO: check sum to departments
+//TODO: style
+//TODO: forms
 <script>
 import { persons, salaryData } from "@/data.js";
 import WorkerTable from "@/components/WorkerTable.vue";
@@ -82,18 +84,22 @@ export default {
     },
     sortedWorkersAndSalary() {
       let begin, end;
-      if (this.searchSalary === "0-2000") {
-        begin = 0;
-        end = 2000;
-      } else if (this.searchSalary === "2001-3000") {
-        begin = 2001;
-        end = 3000;
-      } else if (this.searchSalary === ">3000") {
-        begin = 3001;
-        end = Infinity;
-      } else {
-        begin = 0;
-        end = Infinity;
+      switch (this.searchSalary) {
+        case "0-2000":
+          begin = 0;
+          end = 2000;
+          break;
+        case "2001-3000":
+          begin = 2001;
+          end = 3000;
+          break;
+        case ">3000":
+          begin = 3001;
+          end = Infinity;
+          break;
+        default:
+          begin = 0;
+          end = Infinity;
       }
       return this.sortedWorkers.filter((worker) => {
         return (
