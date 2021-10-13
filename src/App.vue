@@ -102,10 +102,14 @@ export default {
       });
     },
     sortedWorkersSalaryDepartment() {
-      console.log(this.searchDepartment[0], this.searchDepartment[1]);
-      return this.sortedWorkersAndSalary.filter((worker) => {
-        return (worker.dzial = "IT");
-      });
+      const selectedDepartment = Object.values(this.searchDepartment);
+      if (selectedDepartment.length > 0) {
+        return this.sortedWorkersAndSalary.filter((worker) => {
+          return selectedDepartment.includes(worker.dzial);
+        });
+      } else {
+        return this.sortedWorkersAndSalary;
+      }
     },
   },
 };
