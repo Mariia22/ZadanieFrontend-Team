@@ -7,7 +7,11 @@
           placeholder="Szukaj..."
           v-model="searchWorker"
         />
-        <my-multyselected :options="dzial" />
+        <select class="select" v-model="searchDepartment" multiple>
+          <option v-for="department in departments" :key="department">
+            {{ department }}
+          </option>
+        </select>
         <my-selected
           :options="salary"
           :selection="selection"
@@ -19,12 +23,12 @@
     <my-dialog v-model:show="dialogVisible">
       <worker-form @create="createWorker" />
     </my-dialog>
-    <worker-table :workers="sortedWorkersAndSalary" />
+    <worker-table :workers="sortedWorkersSalaryDepartment" />
   </div>
 </template>
 
 <script>
-import { persons, salaries } from "@/data.js";
+import { persons, salaryData } from "@/data.js";
 import WorkerTable from "@/components/WorkerTable.vue";
 import WorkerForm from "@/components/WorkerForm.vue";
 
@@ -37,11 +41,12 @@ export default {
     return {
       workers: [],
       dialogVisible: false,
-      dzial: ["IT", "B"],
+      departments: [],
       salary: [],
       selection: "kwotę wynagrodzenia",
       searchWorker: "",
       searchSalary: "",
+      searchDepartment: [],
     };
   },
   methods: {
@@ -55,7 +60,14 @@ export default {
   },
   created() {
     this.workers = persons;
-    this.salary = salaries;
+    this.salary = salaryData;
+    this.departments = Array.from(
+      new Set(
+        [...this.workers].map((worker) => {
+          return worker.dzial;
+        })
+      )
+    );
   },
   computed: {
     sortedWorkers() {
@@ -87,6 +99,12 @@ export default {
         return (
           worker.wynagrodzenieKwota >= begin && worker.wynagrodzenieKwota <= end
         );
+      });
+    },
+    sortedWorkersSalaryDepartment() {
+      console.log(this.searchDepartment[0], this.searchDepartment[1]);
+      return this.sortedWorkersAndSalary.filter((worker) => {
+        return (worker.dzial = "IT");
       });
     },
   },

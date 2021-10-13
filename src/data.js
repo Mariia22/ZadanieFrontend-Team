@@ -35,6 +35,6 @@ export const persons = [
         wynagrodzenieWaluta: "PLN",
     },
 ];
-export const salaries = ["Wszystkie", "0-2000", "2001-3000", ">3000"];
-export const currencyArr=["PLN", "EUR", "USD"];
-export const departmentArr=["IT", "	Administracja", "Handlowiec"];
+export const salaryData = ["Wszystkie", "0-2000", "2001-3000", ">3000"];
+export const currencyData = ["PLN", "EUR", "USD"];
+export const departmentData = ["IT", "	Administracja", "Handlowiec"];

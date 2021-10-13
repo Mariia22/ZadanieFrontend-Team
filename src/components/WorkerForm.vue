@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { currencyArr } from "@/data.js";
-import { departmentArr } from "@/data.js";
+import { currencyData, departmentData } from "@/data.js";
 export default {
   data() {
     return {
@@ -53,8 +52,8 @@ export default {
     },
   },
   created() {
-    this.currency = currencyArr;
-    this.department = departmentArr;
+    this.currency = currencyData;
+    this.department = departmentData;
   },
 };
 </script>
@@ -64,5 +63,8 @@ form {
   display: flex;
   flex-direction: column;
   padding: 2px 50px 2px 20px;
+}
+button:disabled {
+  background: brown;
 }
 </style>
