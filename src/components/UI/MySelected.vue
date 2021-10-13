@@ -29,7 +29,7 @@ export default {
       default: "",
     },
     modelValue: String,
-    selection: String,
+    selection: [String, Array],
   },
   methods: {
     updateSelect(event) {

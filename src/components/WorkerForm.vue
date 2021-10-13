@@ -3,7 +3,11 @@
     <h4>Dane osobowe pracownika</h4>
     <my-input v-model="worker.imie" type="text" placeholder="Imie" />
     <my-input v-model="worker.nazwisko" type="text" placeholder="Nazwisko" />
-    <my-input v-model="worker.dzial" type="text" placeholder="Dzial" />
+    <my-selected
+      v-model="worker.dzial"
+      :options="department"
+      :selection="selection[1]"
+    />
     <my-input
       v-model="worker.wynagrodzenieKwota"
       type="number"
@@ -12,13 +16,15 @@
     <my-selected
       :options="currency"
       v-model="worker.wynagrodzenieWaluta"
-      :selection="selection"
+      :selection="selection[0]"
     />
     <my-button @click="createWorker">Dodaj</my-button>
   </form>
 </template>
 
 <script>
+import { currencyArr } from "@/data.js";
+import { departmentArr } from "@/data.js";
 export default {
   data() {
     return {
@@ -29,8 +35,9 @@ export default {
         wynagrodzenieKwota: "",
         wynagrodzenieWaluta: "",
       },
-      currency: ["PLN", "EUR", "USD"],
-      selection: "walutę",
+      currency: [],
+      department: [],
+      selection: ["walutę", "dzial"],
     };
   },
   methods: {
@@ -44,6 +51,10 @@ export default {
         wynagrodzenieWaluta: "",
       };
     },
+  },
+  created() {
+    this.currency = currencyArr;
+    this.department = departmentArr;
   },
 };
 </script>

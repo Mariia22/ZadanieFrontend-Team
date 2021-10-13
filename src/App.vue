@@ -9,7 +9,7 @@
         />
         <my-multyselected :options="dzial" />
         <my-selected
-          :options="kwota"
+          :options="salary"
           :selection="selection"
           v-model="searchSalary"
         />
@@ -19,11 +19,12 @@
     <my-dialog v-model:show="dialogVisible">
       <worker-form @create="createWorker" />
     </my-dialog>
-    <worker-table :workers="sortedWorkers" />
+    <worker-table :workers="sortedWorkersAndSalary" />
   </div>
 </template>
 
 <script>
+import { persons, salaries } from "@/data.js";
 import WorkerTable from "@/components/WorkerTable.vue";
 import WorkerForm from "@/components/WorkerForm.vue";
 
@@ -34,46 +35,10 @@ export default {
   },
   data() {
     return {
-      workers: [
-        {
-          imie: "Jan",
-          nazwisko: "Kowalski",
-          dzial: "IT",
-          wynagrodzenieKwota: "3000",
-          wynagrodzenieWaluta: "PLN",
-        },
-        {
-          imie: "Anna",
-          nazwisko: "Bąk",
-          dzial: "Administracja",
-          wynagrodzenieKwota: "2400.50",
-          wynagrodzenieWaluta: "PLN",
-        },
-        {
-          imie: "Paweł",
-          nazwisko: "Zabłocki",
-          dzial: "IT",
-          wynagrodzenieKwota: "3300",
-          wynagrodzenieWaluta: "PLN",
-        },
-        {
-          imie: "Tomasz",
-          nazwisko: "Osiecki",
-          dzial: "Administracja",
-          wynagrodzenieKwota: "2100",
-          wynagrodzenieWaluta: "PLN",
-        },
-        {
-          imie: "Iwona",
-          nazwisko: "Leihs-Gutowska",
-          dzial: "Handlowiec",
-          wynagrodzenieKwota: "3100",
-          wynagrodzenieWaluta: "PLN",
-        },
-      ],
+      workers: [],
       dialogVisible: false,
       dzial: ["IT", "B"],
-      kwota: ["0-2000", "2000-3000", ">3000"],
+      salary: [],
       selection: "kwotę wynagrodzenia",
       searchWorker: "",
       searchSalary: "",
@@ -88,12 +53,39 @@ export default {
       this.dialogVisible = false;
     },
   },
+  created() {
+    this.workers = persons;
+    this.salary = salaries;
+  },
   computed: {
     sortedWorkers() {
       return this.workers.filter((worker) => {
         return (
-          worker.imie.toLowerCase().includes(this.searchWorker) ||
-          worker.nazwisko.toLowerCase().includes(this.searchWorker)
+          worker.imie.toLowerCase().includes(this.searchWorker.toLowerCase()) ||
+          worker.nazwisko
+            .toLowerCase()
+            .includes(this.searchWorker.toLowerCase())
+        );
+      });
+    },
+    sortedWorkersAndSalary() {
+      let begin, end;
+      if (this.searchSalary === "0-2000") {
+        begin = 0;
+        end = 2000;
+      } else if (this.searchSalary === "2001-3000") {
+        begin = 2001;
+        end = 3000;
+      } else if (this.searchSalary === ">3000") {
+        begin = 3001;
+        end = Infinity;
+      } else {
+        begin = 0;
+        end = Infinity;
+      }
+      return this.sortedWorkers.filter((worker) => {
+        return (
+          worker.wynagrodzenieKwota >= begin && worker.wynagrodzenieKwota <= end
         );
       });
     },
