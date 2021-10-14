@@ -29,8 +29,7 @@
     </div>
   </div>
 </template>
-//TODO: check sum to departments
-//TODO: forms
+
 <script>
 import { persons, salaryData } from "@/data.js";
 import WorkerTable from "@/components/WorkerTable.vue";

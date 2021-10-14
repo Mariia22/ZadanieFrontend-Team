@@ -21,6 +21,14 @@
       />
     </form>
     <my-button class="button" @click="createWorker">Dodaj</my-button>
+    <div class="error">
+    <p v-if="errors.length">
+  <b>Proszę poprawić następujące błędy &#128533;</b>
+  <ul>
+    <li v-for="error in errors" :key="error">{{ error }}</li>
+  </ul>
+</p>
+</div>
   </div>
 </template>
 
@@ -36,6 +44,7 @@ export default {
         wynagrodzenieKwota: "",
         wynagrodzenieWaluta: "",
       },
+      errors: [],
       currency: [],
       department: [],
       selection: ["walutę", "dzial"],
@@ -43,14 +52,32 @@ export default {
   },
   methods: {
     createWorker() {
-      this.$emit("create", this.worker);
-      this.worker = {
-        imie: "",
-        nazwisko: "",
-        dzial: "",
-        wynagrodzenieKwota: "",
-        wynagrodzenieWaluta: "",
-      };
+      this.errors = [];
+      if (
+        this.worker.imie &&
+        this.worker.nazwisko &&
+        this.worker.dzial &&
+        this.worker.wynagrodzenieKwota &&
+        this.worker.wynagrodzenieWaluta
+      ) {
+        this.$emit("create", this.worker);
+
+        this.worker = {
+          imie: "",
+          nazwisko: "",
+          dzial: "",
+          wynagrodzenieKwota: "",
+          wynagrodzenieWaluta: "",
+        };
+      } else {
+        if (!this.worker.imie) this.errors.push("Imie wymagane");
+        if (!this.worker.nazwisko) this.errors.push("Nazwisko rwymagane");
+        if (!this.worker.dzial) this.errors.push("Dzial wymagane");
+        if (!this.worker.wynagrodzenieKwota)
+          this.errors.push("Wynagrodzenie wymagane");
+        if (!this.worker.wynagrodzenieWaluta)
+          this.errors.push("Waluta wymagane");
+      }
     },
   },
   created() {
@@ -77,5 +104,8 @@ h4 {
 }
 .button {
   align-items: center;
+}
+.error {
+  color: #6678b1;
 }
 </style>
